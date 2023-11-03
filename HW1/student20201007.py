@@ -7,7 +7,7 @@ ws=wb.active #활성 시트 불러오기
 
 min_row=2
 total_list=[]
-grade_list=[]
+grade_list=[0,0]
 Fstu = 0
 for row in range(min_row,ws.max_row+1):
     midterm = ws.cell(column=3,row=row).value
@@ -27,15 +27,13 @@ for row in range(min_row,ws.max_row+1):
     
     
     
-
 #정렬
 # total_list2=sorted(total_list, key=lambda i:i[1],reverse=True) 
 total_list2=sorted(total_list,reverse=True)
-# print(total_list)
-#print(total_list2)
 
-#전체 학생 수
 student=len(total_list2)
+
+grade_list=[total_list2.index(t)+1 for t in total_list]
 
 #3. A,B,C 비율 나누기
 
@@ -51,20 +49,19 @@ Aplus=int(Astu*0.5)
 Bplus=int(Bstu*0.5)
 Cplus=int(Cstu*0.5)
 
-
 #학점 부여
 for row in range(min_row,ws.max_row+1):
     if ws.cell(column=7, row=row).value <40:
         ws.cell(row=row, column=8).value = 'F'
-    elif ws.cell(column=7, row=row).value >= total_list[Astu-1]:
-        ws.cell(row=row, column=8).value = 'A0'
-    elif ws.cell(column=7, row=row).value >= total_list[Astu+Aplus-1] and Bplus>0:
+    elif grade_list[row - min_row] <= Aplus:
         ws.cell(row=row,column=8).value='A+'
-    elif ws.cell(column=7, row=row).value >= total_list[Astu+Bplus-1] and Bplus >0:
+    elif grade_list[row - min_row] <=Astu:
+        ws.cell(row=row, column=8).value = 'A0'
+    elif grade_list[row - min_row] <=Astu+Bplus:
         ws.cell(row=row,column=8).value='B+'
-    elif ws.cell(column=7, row=row).value >= total_list[Astu+Bplus+Bstu-1]:
+    elif grade_list[row - min_row] <=Astu+Bstu:
         ws.cell(row=row, column=8).value = 'B0'
-    elif ws.cell(column=7, row=row).value >= total_list[Astu + Bplus + Bstu + Cplus - 1]:
+    elif grade_list[row - min_row] <=Astu+Bstu+Cplus:
         ws.cell(row=row, column=8).value = 'C+'
     else:
         ws.cell(row=row, column=8).value = 'C0'
@@ -83,8 +80,6 @@ for row in range(min_row,ws.max_row+1):
     
 # for i in range(student2, student):
 #     ws.cell(row=total_list2[i][0], column=8).value = 'F'        
-   
-    
 
     
 wb.save('student.xlsx')
