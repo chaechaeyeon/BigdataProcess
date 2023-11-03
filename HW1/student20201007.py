@@ -36,10 +36,10 @@ grade_list=[total_list2.index(t)+1 for t in total_list]
 
 #3. A,B,C 비율 나누기
 
-student2=student-Fstu
-Astu= int(student2*0.3)
-Bstu= int(student2*0.7)- Astu
-Cstu = student2 -(Astu + Bstu)
+# student2=student-Fstu
+Astu= int(student*0.3)
+Bstu= int(student*0.7)- Astu
+Cstu = student -(Astu + Bstu+Fstu)
 # Astu = int(student2 * 0.3)
 # Bstu = int(student2 * 0.4)
 # Cstu = int(student2 * 0.3)
@@ -47,7 +47,7 @@ Cstu = student2 -(Astu + Bstu)
 Aplus=int(Astu*0.5)
 Bplus=int(Bstu*0.5)
 Cplus=int(Cstu*0.5)
-# print(Astu,Bstu,Cstu,Aplus,Bplus,Cplus,Fstu)
+print(student,Astu,Bstu,Cstu,Aplus,Bplus,Cplus,Fstu)
 #학점 부여
 for row in range(min_row,ws.max_row+1):
     if ws.cell(column=7, row=row).value <40:
