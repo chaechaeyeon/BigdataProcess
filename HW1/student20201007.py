@@ -16,8 +16,7 @@ for row in range(min_row,ws.max_row+1):
     attendance = ws.cell(column=6,row=row).value
 
 
-    total = midterm * 0.3 + final * 0.35 + homework * 0.34 + attendance * 0.01
-    
+    total = midterm * 0.3 + final * 0.35 + homework * 0.34 + attendance 
     if total<40:
         Fstu +=1
     
@@ -48,7 +47,7 @@ Cstu = student2 -(Astu + Bstu)
 Aplus=int(Astu*0.5)
 Bplus=int(Bstu*0.5)
 Cplus=int(Cstu*0.5)
-
+print(Astu,Bstu,Cstu,Aplus,Bplus,Cplus)
 #학점 부여
 for row in range(min_row,ws.max_row+1):
     if ws.cell(column=7, row=row).value <40:
