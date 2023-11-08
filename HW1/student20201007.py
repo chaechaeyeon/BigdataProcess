@@ -47,7 +47,7 @@ Cstu = student -(Astu + Bstu+Fstu)
 Aplus=int(Astu*0.5)
 Bplus=int(Bstu*0.5)
 Cplus=int(Cstu*0.5)
-print(student,Astu,Bstu,Cstu,Aplus,Bplus,Cplus,Fstu)
+# print(student,Astu,Bstu,Cstu,Aplus,Bplus,Cplus,Fstu)
 #학점 부여
 for row in range(min_row,ws.max_row+1):
     if ws.cell(column=7, row=row).value <40:
