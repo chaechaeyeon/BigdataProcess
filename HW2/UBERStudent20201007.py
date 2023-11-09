@@ -4,10 +4,9 @@ import calendar
 inputFile = sys.argv[1]
 outputFile = sys.argv[2]
 
-uber_dict = {}
+uber_dict = []
 with open(inputFile,"rt") as f:
-    with open(outputFile,"wt") as output:
-        for line in f:
+    for line in f:
             uber_array=line.strip().split(',')
             # print(uber_array)
             region=uber_array[0]
@@ -21,10 +20,20 @@ with open(inputFile,"rt") as f:
             # print(wday)
             dayofweek  = ['MON','TUE','WED','THU','FRI','SAT','SUN']
             day_name = dayofweek[wday]
-            vehicles = uber_array[2]
-            trips=uber_array[3]
+            vehicles = int(uber_array[2])
+            trips=int(uber_array[3])
             # print(day_name)
-        
 
-        
-            output.write("%s,%s %d,%d\n" % (region, day_name, int(vehicles), int(trips)))
+            u_dict = {
+                "region":region,
+                "day_name":day_name,
+                "vehicles":vehicles,
+                "trips":trips,
+            }
+            uber_dict.append(u_dict)    
+
+sort_uber = sorted(uber_dict,key=lambda x: x['region'])
+
+with open(outputFile,"wt") as output:
+        for u_dict in sort_uber:
+            output.write("%s,%s %d,%d\n" % (u_dict["region"], u_dict["day_name"], u_dict["vehicles"], u_dict["trips"]))
