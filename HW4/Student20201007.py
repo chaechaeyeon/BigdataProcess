@@ -3,16 +3,15 @@
 
 import sys
 import numpy as np
-
-import os
+from os import listdir
 import operator
 
 def createDataSet(dir):
-    
-    t_fileList = os.listdir(dir)
+    labels=[]
+    t_fileList = listdir(dir)
     m = len(t_fileList)
     matrix =np.zeros((m,1024))
-    labels=[]
+   
     for i in range(m):
         files= t_fileList[i]
         featVex = int(files.split('_')[0])
@@ -34,15 +33,15 @@ def classify0(inX, dataSet, labels, k):
         classCount[voteLabel]=classCount.get(voteLabel,0)+1
     sortedClassCount = sorted(classCount.items(),key=operator.itemgetter(1),reverse=True)
     return sortedClassCount[0][0]
-def authNorm(dataSet):
-    minVals=dataSet.min(0)
-    maxVals=dataSet.max(0)
-    ranges=maxVals-minVals#범위
-    normDataSet=np.zeros(np.shape(dataSet))
-    m = dataSet.Shape[0]
-    normDataSet=dataSet-np.title(minVals,(m,1))
-    normDataSet = normDataSet/np.tile(ranges,(m,1))
-    return normDataSet,ranges,minVals
+# def authNorm(dataSet):
+#     minVals=dataSet.min(0)
+#     maxVals=dataSet.max(0)
+#     ranges=maxVals-minVals#범위
+#     normDataSet=np.zeros(np.shape(dataSet))
+#     m = dataSet.Shape[0]
+#     normDataSet=dataSet-np.title(minVals,(m,1))
+#     normDataSet = normDataSet/np.tile(ranges,(m,1))
+#     return normDataSet,ranges,minVals
 
 def getVector(name):
 	vec = np.zeros((1,1024))
@@ -56,10 +55,10 @@ def getVector(name):
 trainingFileName = sys.argv[1]
 testFileName = sys.argv[2]
 
-matrix,labels = createDataSet(trainingFileName)
-fileList = os.listdir(testFileName)
-length = len(fileList)
 
+fileList = listdir(testFileName)
+length = len(fileList)
+matrix,labels = createDataSet(trainingFileName)
 for k in range(1, 21):
 	error = 0
 	cnt = 0
